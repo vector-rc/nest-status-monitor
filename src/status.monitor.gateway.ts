@@ -7,7 +7,7 @@ import {
 import { StatusMonitoringService } from './status.monitoring.service';
 import { Inject, forwardRef } from '@nestjs/common';
 
-@WebSocketGateway()
+@WebSocketGateway({ allowEIO3: true })
 export class StatusMonitorGateway implements OnGatewayConnection {
   @WebSocketServer()
   server;
@@ -15,7 +15,7 @@ export class StatusMonitorGateway implements OnGatewayConnection {
   constructor(
     @Inject(forwardRef(() => StatusMonitoringService))
     private readonly statusMonitoringService: StatusMonitoringService,
-  ) {}
+  ) { }
 
   @SubscribeMessage('esm_change')
   onEvent(client, data: any) {
